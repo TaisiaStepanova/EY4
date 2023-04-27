@@ -1,0 +1,622 @@
+#:import Factory kivy.factory.Factory
+
+ScreenManager:
+    id: screen_manager
+    MenuScreen:
+        id: menu_screen
+        name: 'Меню'
+        manager: screen_manager
+    DictionaryScreen:
+        id: dictionary_screen
+        name: 'Словарь'
+        manager: screen_manager
+    RefScreen:
+        id: ref_screen
+        name: 'Справка'
+        manager: screen_manager
+    FormsScreen:
+        id: forms_screen
+        name: 'Формы'
+        manager: screen_manager
+    NewDScreen:
+        id: dialog_screen
+        name: 'Диалог'
+        manager: screen_manager
+
+
+
+
+
+<MenuScreen>
+
+    BoxLayout:
+        padding: 25, 0, 0, 0
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 150, 150, 150, 150
+            spacing: 20
+
+            Button:
+                background_color: 0.92, 0.75, 1
+                background_normal: ''
+                on_press:
+                on_release: root.manager.current = 'Диалог'
+                color: 0.34, 0.14, 0.43
+                text: "Новый диалог"
+                font_size: 24
+                disabled: False
+
+            Button:
+                background_color: 0.92, 0.75, 1
+                background_normal: ''
+                on_press: app.show_data('nan')
+                on_release: root.manager.current = 'Словарь'
+                color: 0.34, 0.14, 0.43
+                text: "Просмотр истории"
+                font_size: 24
+                disabled: False
+
+
+            Button:
+                background_color: 0.92, 0.75, 1
+                background_normal: ''
+                color: 0.34, 0.14, 0.43
+                text: "Справка"
+                font_size: 24
+                disabled: False
+                on_press: root.manager.current = 'Справка'
+
+
+
+<DictionaryScreen>
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+        id: bl_1
+
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+
+                BoxLayout:
+
+                    GridLayout:
+                        cols: 1
+                        id: gl_2
+
+                    GridLayout:
+                        cols: 1
+                        id: gl_3
+                        size_hint: .1, 1
+                        spacing: 10
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+                    size_hint: 1, .07
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "<-"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page(current_page, '-')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_first_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Label:
+                        id: current_page
+                        font_size: 20
+                        text: "1"
+                        color: 0.34, 0.14, 0.43
+
+                    Button:
+                        id: last_page
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_last_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "->"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page(current_page, '+')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+                        radius: [40]
+
+
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 9
+                size_hint: .2, 1
+
+                Label:
+                    id: number_record
+                    size_hint: 1, .1
+                    text: "Кол-во записей: 0"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    size_hint: 1, .1
+                    text: "Кол-во на страницу:"
+                    color: 0.34, 0.14, 0.43, 1
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "5"
+                        color: 0.34, 0.14, 0.43, 1
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "10"
+                        color: 0.34, 0.14, 0.43, 1
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    CheckBox:
+                        group:"num_record"
+                        active: "down"
+                        on_active: app.to_x_record(5)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record"
+                        on_active: app.to_x_record(10)
+                        color: 0.34, 0.14, 0.43
+
+
+                Widget:
+                    text: ""
+
+                Button:
+                    size_hint: 1, .1
+                    text: "Назад"
+                    font_size: 20
+                    disabled: False
+                    on_press: root.manager.current = 'Меню'
+                    color: 0.34, 0.14, 0.43
+                    background_color: 0.82, 0.43, 1, 1
+                    background_normal: ''
+
+
+<RefScreen>
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+
+        Label:
+            font_size: 20
+            text: " Данное приложения является диалоговой системой по предметной области 'Комнатные растения'.  \n    *В режиме диалога можно получить интересующую \n     информацию о комнатных растениях. \n    *В режиме просмотра истории можно просмотреть \n      все сохранненые диалоги, а также переименовать их."
+
+            size_hint: 1, .18
+            color: 0.34, 0.14, 0.43
+
+        Label:
+            id: label
+            font_size: 20
+            text: ""
+            size_hint: 1, .18
+            color: 0, .26, .41, 1
+
+        Button:
+            size_hint: 1, .05
+            text: "Назад"
+            font_size: 20
+            disabled: False
+            on_press: root.manager.current = 'Меню'
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+
+<FormsScreen>
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+        id: bl_1
+
+        GridLayout:
+            cols: 2
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .1
+
+                    GridLayout:
+                        cols: 1
+                        id: box
+
+                    GridLayout:
+                        cols: 1
+                        id: gl_form_3
+                        size_hint: .1, 1
+                        spacing: 10
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .1
+
+                    Label:
+                        font_size: 14
+                        text: "Актор"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Сообщение"
+                        color: 0.34, 0.14, 0.43
+
+
+
+                BoxLayout:
+
+                    GridLayout:
+                        cols: 2
+                        id: gl_form_2
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+                    size_hint: 1, .07
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "<-"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page_form(current_page, '-')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_first_page_form(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Label:
+                        id: current_page
+                        font_size: 20
+                        text: "1"
+                        color: 0.34, 0.14, 0.43
+
+                    Button:
+                        id: last_page
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_last_page_form(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "->"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page_form(current_page, '+')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+                        radius: [40]
+
+
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 9
+                size_hint: .2, 1
+
+                Label:
+                    id: number_record
+                    size_hint: 1, .1
+                    text: "Кол-во записей: 0"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    size_hint: 1, .1
+                    text: "Кол-во на страницу:"
+                    color: 0.34, 0.14, 0.43, 1
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "5"
+                        color: 0.34, 0.14, 0.43, 1
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "10"
+                        color: 0.34, 0.14, 0.43, 1
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    CheckBox:
+                        group:"num"
+                        active: "down"
+                        on_active: app.to_x_record_form(5)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num"
+                        on_active: app.to_x_record_form(10)
+                        color: 0.34, 0.14, 0.43
+
+
+                Widget:
+                    text: ""
+
+                Button:
+                    size_hint: 1, .1
+                    text: "Назад"
+                    font_size: 20
+                    disabled: False
+                    on_press: root.manager.current = 'Словарь'
+                    color: 0.34, 0.14, 0.43
+                    background_color: 0.82, 0.43, 1, 1
+                    background_normal: ''
+
+
+<EditPopup@Popup>:
+    background: ''
+    background_color: 0.92, 0.75, 1, 1
+    title_color: 0.34, 0.14, 0.43
+    auto_dismiss: False
+    title: "Редактирование названия диалога"
+    size_hint: .5, .5
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+
+        Label:
+            font_size: 20
+            text: "Введите новое название"
+            size_hint: 1, .18
+            color: 0.34, 0.14, 0.43
+
+        TextInput:
+            id: edit_form
+            size_hint: 1, .1
+            multiline: False
+            text: ""
+
+        Label:
+            id: label
+            font_size: 20
+            text: ""
+            size_hint: 1, .05
+            color: 0, .26, .41, 1
+
+
+        Button:
+            size_hint: 1, .1
+            text: "Изменить"
+            font_size: 20
+            disabled: False
+            on_press:app.controller.edit_form(edit_form, label)
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+
+        Label:
+            id: label
+            font_size: 20
+            text: ""
+            size_hint: 1, .05
+            color: 0, .26, .41, 1
+
+        Button:
+            size_hint: 1, .1
+            text: "Закрыть"
+            font_size: 20
+            disabled: False
+            on_press:root.dismiss()
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+
+<NewDScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+        id: bl_1
+
+        BoxLayout:
+            orientation: "horizontal"
+
+
+            Image:
+                source: 'pngegg.png'
+                size_hint: .7, 1
+                size: self.texture_size
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 10
+                spacing: 10
+
+                Label:
+                    font_size: 20
+                    text: "Kate"
+                    size_hint: 1, .05
+                    color: 0, .26, .41, 1
+
+                Label:
+                    size_hint: 1, .1
+                    text: ""
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    id: label
+                    font_size: 20
+                    text: "Hello! What do you want ot know about indoor plants??"
+                    size_hint: 1, .05
+                    text_size: 600, 200
+                    color: 0, .26, .41, 1
+                    multiline: True
+
+                Label:
+                    size_hint: 1, .1
+                    text: ""
+                    color: 0.34, 0.14, 0.43, 1
+
+                TextInput:
+                    id: answer
+                    size_hint: 1, .3
+                    multiline: False
+                    text: ""
+
+                Label:
+                    size_hint: 1, .02
+                    text: ""
+                    color: 0.34, 0.14, 0.43, 1
+
+                Button:
+                    size_hint: 1, .1
+                    text: "Ответить"
+                    font_size: 20
+                    disabled: False
+                    on_press: app.get_answer(answer)
+                    color: 0.34, 0.14, 0.43
+                    background_color: 0.92, 0.75, 1
+                    background_normal: ''
+
+                Label:
+                    size_hint: 1, .1
+                    text: ""
+                    color: 0.34, 0.14, 0.43, 1
+
+
+                Button:
+                    size_hint: 1, .1
+                    text: "Завершить диалог"
+                    font_size: 20
+                    disabled: False
+                    on_press: Factory.SavePopup().open()
+                    color: 0.34, 0.14, 0.43
+                    background_color: 0.92, 0.75, 1
+                    background_normal: ''
+
+                Label:
+                    size_hint: 1, .05
+                    text: ""
+                    color: 0.34, 0.14, 0.43, 1
+
+
+<SavePopup@Popup>:
+    background: ''
+    background_color: 0.92, 0.75, 1, 1
+    title_color: 0.34, 0.14, 0.43
+    auto_dismiss: False
+    title: "Сохранение диалога"
+    size_hint: .4, .4
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+
+        Label:
+            font_size: 20
+            text: "Сохранить диалог?"
+            size_hint: 1, .18
+            color: 0.34, 0.14, 0.43
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 5
+            size_hint: 1, .2
+
+            Button:
+                text: "Сохранить"
+                font_size: 20
+                disabled: False
+                on_press: root.dismiss()
+                on_release: app.save_dialog()
+                color: 0.34, 0.14, 0.43
+                background_color: 0.82, 0.43, 1, 1
+                background_normal: ''
+
+            Button:
+                text: "Не сохранить"
+                font_size: 20
+                disabled: False
+                on_press: root.dismiss()
+                on_release: app.open_menu()
+                color: 0.34, 0.14, 0.43
+                background_color: 0.82, 0.43, 1, 1
+                background_normal: ''
+
+        Label:
+            id: label
+            font_size: 20
+            text: ""
+            size_hint: 1, .05
+            color: 0, .26, .41, 1
+
+        Button:
+            size_hint: 1, .1
+            text: "Закрыть"
+            font_size: 20
+            disabled: False
+            on_press:root.dismiss()
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
